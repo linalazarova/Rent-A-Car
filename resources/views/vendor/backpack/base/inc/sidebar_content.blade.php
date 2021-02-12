@@ -2,3 +2,4 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('brand') }}'><i class='nav-icon la la-question'></i> Brands</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('carmodel') }}'><i class='nav-icon la la-question'></i> Carmodels</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('car') }}'><i class='nav-icon la la-question'></i> Cars</a></li>
