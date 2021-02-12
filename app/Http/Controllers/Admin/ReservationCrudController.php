@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CarRequest;
+use App\Http\Requests\ReservationRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class CarCrudController
+ * Class ReservationCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class CarCrudController extends CrudController
+class ReservationCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -19,38 +19,6 @@ class CarCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    private function getFieldsData($show = FALSE) {
-        return [
-            [
-                'label' => "Car Image",
-                'name' => "image",
-                'type' => 'image',
-                'crop' => false,
-                'aspect_ratio' => 1, 
-            ],
-            [
-                'name'=> 'car',
-                'label' => 'Car model',
-                'type'=> 'text'
-            ],
-            [
-                'name' => 'brand',
-                'label' => 'Brand',
-                'type' => 'text',
-            ],
-            [
-                'name' => 'year',
-                'label' => 'Year of production',
-                'type' => 'text',
-            ],
-            [
-                'name' => 'price',
-                'label' => 'Price',
-                'type' => 'text',
-            ]
-
-        ];
-    }
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -58,11 +26,9 @@ class CarCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\Car::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/car');
-        CRUD::setEntityNameStrings('car', 'cars');
-
-        $this->crud->addFields($this->getFieldsData());
+        CRUD::setModel(\App\Models\Reservation::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/reservation');
+        CRUD::setEntityNameStrings('reservation', 'reservations');
     }
 
     /**
@@ -73,8 +39,13 @@ class CarCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        $this->crud->set('show.setFromDb', false);
-        $this->crud->addColumns($this->getFieldsData(TRUE));
+        CRUD::setFromDb(); // columns
+
+        /**
+         * Columns can be defined using the fluent syntax or array syntax:
+         * - CRUD::column('price')->type('number');
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         */
     }
 
     /**
@@ -85,7 +56,7 @@ class CarCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(CarRequest::class);
+        CRUD::setValidation(ReservationRequest::class);
 
         CRUD::setFromDb(); // fields
 
@@ -106,6 +77,4 @@ class CarCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
-
-
 }
