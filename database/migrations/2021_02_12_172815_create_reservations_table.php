@@ -18,7 +18,8 @@ class CreateReservationsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('telephone'); 
-            $table->string('car_id');          
+            $table->unsignedInteger('brand_id');
+            $table->unsignedInteger('car_model_id');
             $table->date('date_from');
             $table->date('date_to');
             $table->double('price');

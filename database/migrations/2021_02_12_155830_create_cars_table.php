@@ -18,7 +18,6 @@ class CreateCarsTable extends Migration
             $table->unsignedInteger('car_model_id');
             $table->unsignedInteger('brand_id');
             $table->string('year_of_production');
-            $table->double('price');
             $table->timestamps();
         });
     }

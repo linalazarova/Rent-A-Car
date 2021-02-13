@@ -19,6 +19,66 @@ class ReservationCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    private function getFieldsData($show = FALSE) {
+        return [  
+            [
+                'name'=> 'first_name',
+                'label' => 'First Name',
+                'type'=> 'text'
+            ],
+            [
+                'name'=> 'last_name',
+                'label' => 'Last Name',
+                'type'=> 'text'
+            ],
+            [
+                'name'=> 'telephone',
+                'label' => 'Telephone',
+                'type'=> 'text'
+            ],
+            [ 
+                'label'     => "Brand",
+                'type'      => 'select',
+                'name'      => 'brand_id', // the db column for the foreign key
+                // 
+                'entity'    => 'brand', // the method that defines the relationship in your Model
+                'model'     => "App\Models\Brand", // foreign key model
+                'attribute' => 'name' // foreign key attribute that is shown to user
+            ],
+            [
+                'label' => "Car Model",
+                'type' => 'select',
+                'name' => 'car_model_id', // the db column for the foreign key
+                //
+                'entity' => 'carModel', // the method that defines the relationship in your Model
+                'model' => "App\Models\Carmodel", // foreign key model
+                'attribute' => 'name' // foreign key attribute that is shown to user
+            ],
+            [
+                'name'=> 'date_from',
+                'label' => 'Date from',
+                'type'=> 'date'
+            ],
+            [
+                'name'=> 'date_from',
+                'label' => 'Date from',
+                'type'=> 'date'
+            ],
+            [
+                'name'=> 'date_to',
+                'label' => 'Date to',
+                'type'=> 'date'
+            ],
+            [
+                'name'=> 'price',
+                'label' => 'Price',
+                'type'=> 'number'
+            ],
+               
+                
+            
+        ];
+    }
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -29,6 +89,8 @@ class ReservationCrudController extends CrudController
         CRUD::setModel(\App\Models\Reservation::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/reservation');
         CRUD::setEntityNameStrings('reservation', 'reservations');
+
+        $this->crud->addFields($this->getFieldsData());
     }
 
     /**
@@ -39,13 +101,8 @@ class ReservationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
-
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addColumns($this->getFieldsData(TRUE));
     }
 
     /**
@@ -76,5 +133,14 @@ class ReservationCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupShowOperation()
+    {
+        // by default the Show operation will try to show all columns in the db table,
+        // but we can easily take over, and have full control of what columns are shown,
+        // by changing this config for the Show operation
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addColumns($this->getFieldsData(TRUE));
     }
 }
