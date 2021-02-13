@@ -86,6 +86,12 @@ public function setImageAttribute($value)
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function brand() {
+        return $this->belongsTo(Brand::class);
+    }
+    public function carModel() {
+        return $this->belongsTo(Carmodel::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

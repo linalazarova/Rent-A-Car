@@ -27,28 +27,31 @@ class CarCrudController extends CrudController
                 'type' => 'image',
                 'crop' => false,
                 'aspect_ratio' => 1, 
+            ],                       
+            [ 
+                'label'     => "Brand",
+                'type'      => 'select',
+                'name'      => 'brand_id', // the db column for the foreign key
+                // 
+                'entity'    => 'brand', // the method that defines the relationship in your Model
+                'model'     => "App\Models\Brand", // foreign key model
+                'attribute' => 'name' // foreign key attribute that is shown to user
             ],
             [
-                'name'=> 'car',
-                'label' => 'Car model',
-                'type'=> 'text'
+                'label' => "Car Model",
+                'type' => 'select',
+                'name' => 'car_model_id', // the db column for the foreign key
+                //
+                'entity' => 'carModel', // the method that defines the relationship in your Model
+                'model' => "App\Models\Carmodel", // foreign key model
+                'attribute' => 'name' // foreign key attribute that is shown to user
             ],
             [
-                'name' => 'brand',
-                'label' => 'Brand',
-                'type' => 'text',
-            ],
-            [
-                'name' => 'year',
+                'name' => 'year_of_production',
                 'label' => 'Year of production',
                 'type' => 'text',
             ],
-            [
-                'name' => 'price',
-                'label' => 'Price',
-                'type' => 'text',
-            ]
-
+            
         ];
     }
     /**
@@ -105,6 +108,15 @@ class CarCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupShowOperation()
+    {
+        // by default the Show operation will try to show all columns in the db table,
+        // but we can easily take over, and have full control of what columns are shown,
+        // by changing this config for the Show operation
+        $this->crud->set('show.setFromDb', false);
+        $this->crud->addColumns($this->getFieldsData(TRUE));
     }
 
 

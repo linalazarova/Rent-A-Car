@@ -38,6 +38,9 @@ class Brand extends Model
     public function carModels() {
         return $this->hasMany(Carmodel::class);
     }
+    public function cars() {
+        return $this->hasMany(Car::class);
+    }
 
     /*
     |--------------------------------------------------------------------------
