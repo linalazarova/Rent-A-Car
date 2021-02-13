@@ -26,7 +26,7 @@ class CarmodelRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:2|max:255'
         ];
     }
 
@@ -50,7 +50,7 @@ class CarmodelRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => 'Please provide valid car model which is between 2 and 255 characters.',
         ];
     }
 }

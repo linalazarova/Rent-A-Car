@@ -26,7 +26,7 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => 'required|min:5|max:255'
         ];
     }
 
@@ -50,7 +50,7 @@ class BrandRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required' => 'Please provide valid brand name which is between 2 and 255 characters.',
         ];
     }
 }

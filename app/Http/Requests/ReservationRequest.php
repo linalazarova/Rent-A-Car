@@ -26,10 +26,16 @@ class ReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'first_name' => 'required|min:2|max:255',
+            'last_name' => 'required|min:2|max:255',
+            'telephone' => 'required',
+            'brand_id' => 'required',
+            'car_model_id' => 'required',
+            'date_from' => 'required',
+            'date_to' => 'required',
+            'price'=>'required'
         ];
     }
-
     /**
      * Get the validation attributes that apply to the request.
      *
@@ -50,7 +56,14 @@ class ReservationRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'first_name.required' => 'Please provide valid name which is between 2 and 255 characters.',
+            'last_name.required' => 'Please provide valid name which is between 2 and 255 characters.',
+            'telephone.required'=>'A phone number is required.',
+            'brand_id.required'=>'Please provide valid car brand.',
+            'car_model_id.required'=>'Please provide valid car model.',
+            'date_from.required'=>'Please provide valid date of reservation.',
+            'date_to.required'=>'Please provide valid date of return.',
+            'price.required'=>'Please provide valid price.',
         ];
     }
 }

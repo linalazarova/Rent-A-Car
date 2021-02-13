@@ -37,7 +37,7 @@ class ReservationCrudController extends CrudController
                 'type'=> 'text'
             ],
             [ 
-                'label'     => "Brand",
+                'label'     => "Car Brand",
                 'type'      => 'select',
                 'name'      => 'brand_id', // the db column for the foreign key
                 // 

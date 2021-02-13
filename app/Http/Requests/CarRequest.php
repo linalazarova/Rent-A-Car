@@ -26,7 +26,7 @@ class CarRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+             'image' => 'required'
         ];
     }
 
@@ -50,7 +50,7 @@ class CarRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'image.required'=>'An image is required.'
         ];
     }
 }
